@@ -1,0 +1,13 @@
+{
+  "name": "@notetube/root",
+  "version": "1.0.0",
+  "description": "Note tube project",
+  "scripts": {
+    "start": "pnpm --stream -r start",
+    "start:dev": "pnpm --stream -r run start:dev",
+    "clean": "rm -rf .parcel-cache && pnpm -r run clean"
+  },
+  "keywords": [],
+  "author": "riyacec05@gmail.com",
+  "license": "MIT"
+}
