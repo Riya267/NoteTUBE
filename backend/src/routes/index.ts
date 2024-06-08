@@ -4,4 +4,4 @@ const router = express.Router();
 
 router.post('/process', controllers.processYoutubeLink);
 
-export default router
+export default router;

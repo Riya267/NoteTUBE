@@ -1,9 +1,9 @@
-import generateTranscript from "./transcript.service";
-import gptService from "./gpt.service";
- 
+import generateTranscript from './transcript.service';
+import gptService from './gpt.service';
+
 const services = {
-    generateTranscript,
-    gptService
-}
+  generateTranscript,
+  gptService,
+};
 
 export default services;

@@ -1,9 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { DefinePlugin } = require('webpack')
+const { DefinePlugin } = require('webpack');
 
-require('dotenv').config({ path: './.env' }); 
+require('dotenv').config({ path: './.env' });
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
     performance: {
       hints: false,
       maxEntrypointSize: 512000,
-      maxAssetSize: 512000
+      maxAssetSize: 512000,
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.css'],
@@ -34,7 +34,7 @@ module.exports = (env, argv) => {
         template: './index.html',
       }),
       new DefinePlugin({
-        "process.env": JSON.stringify(process.env),
+        'process.env': JSON.stringify(process.env),
       }),
     ],
     module: {

@@ -1,5 +1,5 @@
-import processYoutubeLink  from './youtube.controller'
+import processYoutubeLink from './youtube.controller';
 
 export const controllers = {
-    processYoutubeLink
-}
+  processYoutubeLink,
+};

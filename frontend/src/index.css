@@ -15,6 +15,14 @@ body {
   color: #020617;
 }
 
+.bg-youtube-notes-container {
+  background-color: #241f3a;
+}
+
+.text-slate-900 {
+  color: #020617;
+}
+
 body {
   @apply bg-slate-900;
 }
