@@ -8,7 +8,7 @@ import NotesWrapper from '../components/notesWrapper';
 export default function Dashboard() {
   const { data, error, isLoading, invokeNotesApi } = useFetchNotes();
   return (
-    <div className="relative text-slate-500 text-center flex flex-col justify-center items-center w-full">
+    <div className="h-full relative text-slate-500 text-center flex flex-col justify-center items-center w-full">
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center z-50">
           <ActivityIndicator />

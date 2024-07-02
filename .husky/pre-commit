@@ -3,4 +3,4 @@
 
 pnpm run lint 
 pnpm run format
-git add . ':!backend/.env' ':!frontend/.env'
+git add .
