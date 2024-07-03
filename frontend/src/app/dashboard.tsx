@@ -4,20 +4,24 @@ import { useFetchNotes } from '../customHooks/useFetchNotes';
 import { ActivityIndicator } from '../components/activityIndicator';
 import FormWrapper from '../components/formWrapper';
 import NotesWrapper from '../components/notesWrapper';
+import CardGrid from '../components/cardGrid';
 
 export default function Dashboard() {
   const { data, error, isLoading, invokeNotesApi } = useFetchNotes();
   return (
-    <div className="h-full relative text-slate-500 text-center flex flex-col justify-center items-center w-full">
+    <div className="relative">
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-10 backdrop-blur-sm flex justify-center items-center z-50">
           <ActivityIndicator />
         </div>
       )}
       {!data ? (
-        <FormWrapper error={error} invokeNotesApi={invokeNotesApi} />
+        <>
+          <FormWrapper error={error} invokeNotesApi={invokeNotesApi} />
+          <CardGrid />
+        </>
       ) : (
-        <NotesWrapper notes={data.notes} videoId={data.videoId} />
+        <NotesWrapper notes={`data.notes`} videoId={`data.videoId`} />
       )}
       <ToastContainer
         position="top-right"

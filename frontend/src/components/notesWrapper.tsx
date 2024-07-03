@@ -1,5 +1,5 @@
 import Markdown from 'react-markdown';
-import { FaDownload, FaCopy } from 'react-icons/fa';
+import { FaCopy } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import ExportOptions from './exportNotes';
 
@@ -21,7 +21,7 @@ const copyToClipboard = (text: string): void => {
 
 export default function NotesWrapper({ notes, videoId }: NotesWrapperProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full p-4 md:p-10">
+    <div className="w-full">
       <div className="bg-youtube-notes-container shadow-md shadow-[#EA6DD0] rounded-lg py-4">
         <div className="w-full border-b border-gray-600 flex pb-4 px-2">
           <span className="h-4 w-4 bg-red-400 rounded-full ml-2"></span>
@@ -40,7 +40,7 @@ export default function NotesWrapper({ notes, videoId }: NotesWrapperProps) {
           src={`https://youtube.com/embed/${videoId}`}
         ></iframe>
       </div>
-      <div className="md:col-span-2 h-24 bg-youtube-notes-container rounded-lg flex flex-col md:flex-row justify-evenly items-center p-4">
+      <div className="bg-youtube-notes-container rounded-lg p-4 flex flex-col ">
         <button
           className="py-2 px-4 md:px-6 text-base md:text-xl rounded-md bg-transparent border-2 border-green-400 text-white flex items-center mb-2 md:mb-0"
           onClick={() => copyToClipboard(notes)}
