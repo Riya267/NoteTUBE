@@ -27,6 +27,11 @@ body,
   color: #020617;
 }
 
+/* border-style: dashed;
+    border-width: 1px;
+    margin-bottom: 40px;
+    background-color: #5b535340; */
+
 body {
   @apply bg-slate-900;
 }
