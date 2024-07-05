@@ -2,7 +2,10 @@ import React from 'react';
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="my-12 mx-6 rounded-full rounded-tl-none bg-gray-900 py-14">
+    <section
+      id="how"
+      className="my-12 mx-6 rounded-full rounded-tl-none bg-gray-900 py-14"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
           How It Works

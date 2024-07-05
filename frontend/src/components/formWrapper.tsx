@@ -38,7 +38,10 @@ export default function FormWrapper({
   );
 
   return (
-    <section className="flex flex-col items-center justify-center h-[80vh] max-h-[30rem] mb-[80px] pt-[177px] pb-0 relative overflow-hidden bg-slate-900">
+    <section
+      id="home"
+      className="flex flex-col items-center justify-center h-[80vh] max-h-[30rem] mb-[80px] pt-[177px] pb-0 relative overflow-hidden bg-slate-900"
+    >
       <div className="max-w-3xl mx-auto px-6 relative mb-16 text-center">
         <h2 className="text-4xl lg:text-5xl text-white font-extrabold">
           Quick Notes for{' '}
@@ -65,7 +68,7 @@ export default function FormWrapper({
           </div>
           <input
             type="submit"
-            className="font-bold rounded-lg text-white bg-purple-500 hover:bg-purple-600 border-2 border-purple-500 px-6 py-4 transition duration-300 w-full lg:w-auto"
+            className="font-bold rounded-lg text-white border-2 border-purple-500 hover:bg-gray-900 px-6 py-4 transition duration-300 w-full lg:w-auto"
             value="Generate Notes"
           />
         </form>

@@ -1,17 +1,52 @@
+import React, { useEffect, useState } from 'react';
 import logo from '../../public/noteTubeLogo.png';
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+
+      setIsScrolled(scrollTop > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="h-20 w-auto border-b border-slate-600 px-4">
-      <div className="lg:max-w-screen-lg mx-auto flex items-center justify-between h-full">
-        <div className="flex justify-between items-center w-full">
-          <div className="w-[100px]">
-            <img src={logo} alt={'logo'} />
-          </div>
-          <h1 className="text-xl lg:text-2xl font-extrabold text-red-100 tracking-wide text-right pr-5">
-            YouTube Notes Generator
-          </h1>
+    <header
+      className={`w-full flex justify-center items-center bg-transparent text-white fixed top-0 left-0 z-50 shadow-lg transition-all duration-300 ease-in-out transform ${isScrolled ? 'translate-y-4' : 'translate-y-0'}`}
+    >
+      <div
+        className={`w-full max-w-screen-lg bg-transparent rounded-full flex flex-col lg:flex-row items-center justify-between py-4 lg:py-6 px-4 lg:px-8 ${isScrolled ? 'border-2 border-gray-900 backdrop-blur-lg bg-opacity-15' : ''}`}
+      >
+        <div className="flex items-center">
+          <img src={logo} alt="NoteTube Logo" className="w-12 lg:w-16 mr-2" />
         </div>
+        <nav className="flex lg:flex space-x-6 lg:ml-auto mt-4 lg:mt-0">
+          <a
+            href="#home"
+            className="text-white hover:text-gray-300 transition-colors duration-300"
+          >
+            Try
+          </a>
+          <a
+            href="#why"
+            className="text-white hover:text-gray-300 transition-colors duration-300"
+          >
+            Why?
+          </a>
+          <a
+            href="#how"
+            className="text-white hover:text-gray-300 transition-colors duration-300"
+          >
+            How?
+          </a>
+        </nav>
       </div>
     </header>
   );

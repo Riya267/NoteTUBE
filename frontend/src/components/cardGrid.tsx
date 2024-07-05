@@ -5,7 +5,7 @@ import { HiCurrencyDollar } from 'react-icons/hi2';
 
 function CardGrid() {
   return (
-    <section className="bg-gray-900 py-10">
+    <section id="why" className="bg-gray-900 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-center text-slate-50 font-bold text-3xl sm:text-4xl mb-8">
           Why use NoteTube?
