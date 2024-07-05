@@ -25,7 +25,9 @@ export default function Header() {
         className={`w-full max-w-screen-lg bg-transparent rounded-full flex flex-col lg:flex-row items-center justify-between py-4 lg:py-6 px-4 lg:px-8 ${isScrolled ? 'border-2 border-gray-900 backdrop-blur-lg bg-opacity-15' : ''}`}
       >
         <div className="flex items-center">
-          <img src={logo} alt="NoteTube Logo" className="w-16 lg:w-20 mr-2" />
+          <a href="#">
+            <img src={logo} alt="NoteTube Logo" className="w-16 lg:w-20 mr-2" />
+          </a>
         </div>
         <nav className="flex lg:flex space-x-6 lg:ml-auto mt-4 lg:mt-0">
           <a
