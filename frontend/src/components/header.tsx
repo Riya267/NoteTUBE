@@ -31,7 +31,7 @@ export default function Header() {
         </div>
         <nav className="flex lg:flex space-x-6 lg:ml-auto mt-4 lg:mt-0">
           <a
-            href="#home"
+            href="#"
             className="text-white hover:text-gray-300 transition-colors duration-300"
           >
             Try

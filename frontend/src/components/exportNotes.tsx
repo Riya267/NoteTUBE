@@ -4,7 +4,11 @@ import { marked } from 'marked';
 import { NotesWrapperProps } from './notesWrapper';
 import { FaDownload } from 'react-icons/fa';
 
-const ExportOptions: React.FC<NotesWrapperProps> = ({ notes, videoId }) => {
+const ExportButton: React.FC<NotesWrapperProps & { type: string }> = ({
+  notes,
+  videoId,
+  type,
+}) => {
   const handleExport = (format: string) => {
     switch (format) {
       case 'text':
@@ -12,12 +16,6 @@ const ExportOptions: React.FC<NotesWrapperProps> = ({ notes, videoId }) => {
         break;
       case 'pdf':
         exportAsPDF();
-        break;
-      case 'evernote':
-        exportToEvernote();
-        break;
-      case 'googlekeep':
-        exportToGoogleKeep();
         break;
       default:
         break;
@@ -53,37 +51,15 @@ const ExportOptions: React.FC<NotesWrapperProps> = ({ notes, videoId }) => {
     pdfdoc.save(`notes-${videoId}.pdf`);
   };
 
-  const exportToEvernote = () => {
-    window.open(
-      'evernote://create?title=Notes&content=' + encodeURIComponent(notes),
-      '_blank'
-    );
-  };
-
-  const exportToGoogleKeep = () => {
-    window.open(
-      'https://keep.google.com/#note/' + encodeURIComponent(notes),
-      '_blank'
-    );
-  };
-
   return (
-    <div className="py-3 px-6 text-xl rounded-md bg-green-400 text-white flex items-center space-x-2">
-      <select
-        id="exportOptions"
-        className="text-black py-1 px-2 rounded bg-green-400"
-        onChange={(e) => handleExport(e.target.value)}
-      >
-        <option value="" className="text-red-400">
-          Export
-        </option>
-        <option value="text">Text File</option>
-        <option value="pdf">PDF</option>
-        <option value="evernote">Evernote</option>
-        <option value="googlekeep">Google Keep</option>
-      </select>
-    </div>
+    <button
+      className="py-2 px-4 lg:px-6 text-base lg:text-lg rounded-md bg-gray-500 border-2 border-gray-500 hover:border-slate-800 hover:bg-gray-900 text-white flex items-center mb-2 lg:mb-0 lg:mr-2"
+      onClick={() => handleExport(type)}
+    >
+      <FaDownload className="mr-2" />
+      Download {type} File
+    </button>
   );
 };
 
-export default ExportOptions;
+export default ExportButton;

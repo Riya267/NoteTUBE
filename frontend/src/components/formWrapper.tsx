@@ -40,9 +40,9 @@ export default function FormWrapper({
   return (
     <section
       id="home"
-      className="flex flex-col items-center justify-center h-[80vh] max-h-[30rem] mb-[80px] pt-[177px] pb-0 relative overflow-hidden bg-slate-900"
+      className="flex flex-col items-center justify-center lg:h-[80vh] lg:max-h-[30rem] mt-20 mb-10 pt-24 relative overflow-hidden bg-slate-900"
     >
-      <div className="max-w-3xl mx-auto px-6 relative mb-16 text-center">
+      <div className="max-w-3xl mx-auto px-6 relative mb-16 text-center py-4">
         <h2 className="text-4xl lg:text-5xl text-white font-extrabold">
           Quick Notes for{' '}
           <span className="bg-gradient-to-r from-purple-600 via-red-500 to-indigo-400 inline-block text-transparent bg-clip-text">

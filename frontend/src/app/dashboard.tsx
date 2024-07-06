@@ -4,7 +4,7 @@ import { useFetchNotes } from '../customHooks/useFetchNotes';
 import { ActivityIndicator } from '../components/activityIndicator';
 import FormWrapper from '../components/formWrapper';
 import NotesWrapper from '../components/notesWrapper';
-import CardGrid from '../components/cardGrid';
+import CardGrid from '../components/WhyCardGrid';
 import HowItWorks from '../components/howItWorks';
 
 export default function Dashboard() {
@@ -17,14 +17,12 @@ export default function Dashboard() {
         </div>
       )}
       {!data ? (
-        <>
-          <FormWrapper error={error} invokeNotesApi={invokeNotesApi} />
-          <CardGrid />
-          <HowItWorks />
-        </>
+        <FormWrapper error={error} invokeNotesApi={invokeNotesApi} />
       ) : (
-        <NotesWrapper notes={`data.notes`} videoId={`data.videoId`} />
+        <NotesWrapper notes={data.notes} videoId={data.videoId} />
       )}
+      <CardGrid />
+      <HowItWorks />
       <ToastContainer
         position="top-right"
         autoClose={5000}

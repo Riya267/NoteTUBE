@@ -1,4 +1,4 @@
-import Card from './card';
+import Card from './whyCard';
 import { TbTool } from 'react-icons/tb';
 import { PiNotepadBold } from 'react-icons/pi';
 import { HiCurrencyDollar } from 'react-icons/hi2';
