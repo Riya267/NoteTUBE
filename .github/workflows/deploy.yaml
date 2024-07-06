@@ -1,0 +1,111 @@
+name: NoteTube Deployment
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  REACT_APP_BACKEND_SERVICE_BASE_URL: ${{ secrets.REACT_APP_BACKEND_SERVICE_BASE_URL }}
+  REACT_APP_YOUTUBE_API_ENDPOINT: ${{ secrets.REACT_APP_YOUTUBE_API_ENDPOINT }}
+  GPT_KEY: ${{ secrets.GPT_KEY }}
+  NODE_ENV: ${{ secrets.NODE_ENV }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)
+        required: true
+        default: 'master'
+      target-service:
+        type: choice
+        description: Target Service
+        required: true
+        default: frontend
+        options:
+          - frontend
+          - backend
+
+jobs:
+  Deploy-Production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs['git-ref'] }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
+
+      - name: Build Frontend
+        run: npm run build
+        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
+
+      - name: Deploy Frontend to Vercel
+        run: |
+          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm)
+          echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
+        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
+
+      - name: Output Deployed URL
+        run: echo "Frontend Deployed URL: ${{ env.DEPLOY_URL }}"
+        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
+
+      - name: Install Backend Dependencies
+        run: npm install
+        if: ${{ github.event.inputs['target-service'] == 'backend' }}
+
+      - name: Build Backend
+        run: npm run build
+        if: ${{ github.event.inputs['target-service'] == 'backend' }}
+
+     - name: Remove old Docker images
+        run: |
+          docker images --filter=reference="*:latest*" -q | xargs -r docker rmi
+        if: ${{ github.event.inputs['target-service'] == 'backend' }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t notetubebackend .
+          docker tag notetubebackend "${{ secrets.DOCKER_USERNAME }}/notetubebackend:latest"
+        if: ${{ github.event.inputs['target-service'] == 'backend' }}
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        if: ${{ github.event.inputs['target-service'] == 'backend' }}
+
+      - name: Push Docker image
+        run: |
+          docker push "${{ secrets.DOCKER_USERNAME }}/notetubebackend:latest"
+        if: ${{ github.event.inputs['target-service'] == 'backend' }}
+
+      - name: Deploy Backend to Render
+        run: |
+          curl -X POST \
+            https://api.render.com/deploy/${{secrets.RENDER_SECRET_KEY}}?key=${{secrets.RENDER_API_KEY}}&imgURL=docker.io/${{ secrets.DOCKER_USERNAME }}/notetubebackend:latest
+        if: ${{ github.event.inputs['target-service'] == 'backend' }}
+
+      - name: Clean Up
+        run: npm cache clean --force
+
+      - name: Send Deployment Notification
+        run: |
+          if [ "${{ github.event.inputs['target-service'] }}" == "frontend" ]; then
+            echo "Frontend deployment to Vercel was successful! Deployed URL: ${{ env.DEPLOY_URL }}"
+          else
+            echo "Backend deployment to Render was successful!"
+          fi
