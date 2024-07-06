@@ -62,7 +62,7 @@ jobs:
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
       - name: Output Deployed URL
-        run: echo "Frontend Deployed URL: ${{ env.DEPLOY_URL }}"
+        run: echo "Frontend Deployed URL -  ${{ env.DEPLOY_URL }}"
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
       - name: Install Backend Dependencies
@@ -73,7 +73,7 @@ jobs:
         run: npm run build
         if: ${{ github.event.inputs['target-service'] == 'backend' }}
 
-     - name: Remove old Docker images
+      - name: Remove old Docker images
         run: |
           docker images --filter=reference="*:latest*" -q | xargs -r docker rmi
         if: ${{ github.event.inputs['target-service'] == 'backend' }}
