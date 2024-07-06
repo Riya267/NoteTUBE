@@ -1,13 +1,5 @@
 name: NoteTube Deployment
 
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  REACT_APP_BACKEND_SERVICE_BASE_URL: ${{ secrets.REACT_APP_BACKEND_SERVICE_BASE_URL }}
-  REACT_APP_YOUTUBE_API_ENDPOINT: ${{ secrets.REACT_APP_YOUTUBE_API_ENDPOINT }}
-  GPT_KEY: ${{ secrets.GPT_KEY }}
-  NODE_ENV: ${{ secrets.NODE_ENV }}
-
 on:
   workflow_dispatch:
     inputs:
@@ -48,9 +40,22 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
+      
+      - name: Copy directory
+        run: |
+          mkdir -p notetube
+          cp -r ${{ github.workspace }}/frontend/. ${{ github.workspace }}/notetube/
+
+      - name: Create .env File in Notetube
+        run: |
+          cd notetube &&
+          echo "REACT_APP_BACKEND_SERVICE_BASE_URL=${{ secrets.REACT_APP_BACKEND_SERVICE_BASE_URL }}" >> .env
+          echo "REACT_APP_YOUTUBE_API_ENDPOINT=${{ secrets.REACT_APP_YOUTUBE_API_ENDPOINT }}" >> .env
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
       - name: Build Frontend
-        run: cd frontend && pnpm run build
+        run: cd notetube && pnpm run build
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
       - name: Install Vercel CLI
@@ -58,12 +63,12 @@ jobs:
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: cd notetube && vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
       - name: Deploy Frontend to Vercel
         run: |
-          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} --confirm)
+          DEPLOY_URL=$(vercel deploy --cwd="${{ github.workspace }}/notetube"  --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_ORG_ID }})
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
