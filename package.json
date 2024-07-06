@@ -8,7 +8,7 @@
     "clean": "rm -rf node_modules && pnpm -r run clean",
     "lint": "eslint --fix '{backend,frontend}/src/*.{js,jsx,ts,tsx,json}'",
     "format": "prettier --write '{backend,frontend}/**/*.{js,jsx,ts,tsx,json,css,scss}'",
-    "prepare": "husky"
+    "prepare": "if [ \"$NODE_ENV\" = \"development\" ]; then pnpm husky install; fi"
   },
   "keywords": [],
   "author": "riyacec05@gmail.com",
