@@ -51,6 +51,7 @@ jobs:
           cd notetube &&
           echo "REACT_APP_BACKEND_SERVICE_BASE_URL=${{ secrets.REACT_APP_BACKEND_SERVICE_BASE_URL }}" >> .env
           echo "REACT_APP_YOUTUBE_API_ENDPOINT=${{ secrets.REACT_APP_YOUTUBE_API_ENDPOINT }}" >> .env
+           echo "REACT_APP_CHAT_API_ENDPOINT=${{ secrets.REACT_APP_CHAT_API_ENDPOINT }}" >> .env
           echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
