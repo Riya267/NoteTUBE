@@ -1,5 +1,7 @@
-import processYoutubeLink from './youtube.controller';
+import chatWithYoutubeVideo from './chat.controller';
+import fetchYoutubeSummary from './summary.controller';
 
 export const controllers = {
-  processYoutubeLink,
+  fetchYoutubeSummary,
+  chatWithYoutubeVideo,
 };

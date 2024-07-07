@@ -1,29 +1,24 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAppContext } from '../context/appContext';
 
-export interface FormDataInterface {
-  youtubeUrl: string;
-}
-
-export interface FormWrapperProps {
-  error: string | null;
-  invokeNotesApi: (formData: FormDataInterface) => Promise<void>;
-}
-
-export default function FormWrapper({
-  error,
-  invokeNotesApi,
-}: FormWrapperProps) {
-  const [formData, setFormData] = useState<FormDataInterface>({
-    youtubeUrl: '',
+const FormWrapper = () => {
+  const { error, getYoutubeSummary } = useAppContext();
+  const [formData, setFormData] = useState({
+    videoUrl: '',
   });
 
   const handleOnSubmit = useCallback(
     (event: React.SyntheticEvent) => {
       event.preventDefault();
-      invokeNotesApi(formData);
+      const videoId = formData.videoUrl
+        .split('?')[1]
+        .split('&')
+        .find((param) => param.startsWith('v='))
+        ?.split('=')[1]!;
+      getYoutubeSummary({ videoId });
     },
-    [formData, invokeNotesApi]
+    [formData, getYoutubeSummary]
   );
 
   useEffect(() => {
@@ -32,7 +27,7 @@ export default function FormWrapper({
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData({ ...formData, youtubeUrl: e.target.value });
+      setFormData({ ...formData, videoUrl: e.target.value });
     },
     [formData]
   );
@@ -76,4 +71,6 @@ export default function FormWrapper({
       </div>
     </section>
   );
-}
+};
+
+export default FormWrapper;

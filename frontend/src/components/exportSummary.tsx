@@ -1,11 +1,11 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import { marked } from 'marked';
-import { NotesWrapperProps } from './notesWrapper';
 import { FaDownload } from 'react-icons/fa';
+import { Summary, VideoId } from '../types';
 
-const ExportButton: React.FC<NotesWrapperProps & { type: string }> = ({
-  notes,
+const ExportButton: React.FC<Summary & VideoId & { type: string }> = ({
+  summary,
   videoId,
   type,
 }) => {
@@ -23,7 +23,7 @@ const ExportButton: React.FC<NotesWrapperProps & { type: string }> = ({
   };
 
   const exportAsTextFile = () => {
-    const blob = new Blob([notes], { type: 'text/plain' });
+    const blob = new Blob([summary], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -34,7 +34,7 @@ const ExportButton: React.FC<NotesWrapperProps & { type: string }> = ({
   };
 
   const exportAsPDF = () => {
-    const html = marked(notes);
+    const html = marked(summary);
     const parser = new DOMParser();
     const doc = parser.parseFromString(html as string, 'text/html');
     const walker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT);

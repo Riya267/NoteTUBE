@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use('/api/youtube', youtubeRoutes);
+app.use('/api/summary', youtubeRoutes);
 app.get('/healthcheck', async (req, res) => {
   res.sendStatus(200);
 });

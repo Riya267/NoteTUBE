@@ -1,8 +1,4 @@
-interface CardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
+import { CardProps } from '../types';
 
 function Card({ icon, title, description }: CardProps) {
   return (

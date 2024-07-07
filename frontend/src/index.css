@@ -20,7 +20,15 @@ body,
   color: #020617;
 }
 
-.bg-youtube-notes-container {
+.bg-brown {
+  background-color: #8c104c;
+}
+
+.bg-lime {
+  background-color: #ebede8;
+}
+
+.bg-youtube-summary-container {
   background-color: #241f3a;
 }
 

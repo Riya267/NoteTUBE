@@ -4,37 +4,37 @@ import httpStatus from 'http-status';
 import logger from '../config/logger';
 import OpenAI from 'openai';
 
-const api_key = process.env.GPT_KEY!;
 const openai = new OpenAI({
-  apiKey: api_key,
-  baseURL: constants.GPT_API_URL,
+  apiKey: process.env.GPT_KEY!,
+  baseURL: process.env.GPT_API_URL!,
 });
 
-const gptService = async (transcript: string) => {
+const gptService = async (transcript: string, prompt?: string) => {
   logger.info('[Services: gptService] - gptService initiated');
   let errorMsg = 'notes not generated successfully';
+
   try {
     if (!transcript) {
       errorMsg = 'transcript is either undefined, null or empty';
       logger.error(`[Services: gptService] - ${errorMsg}`);
       throw new ApiError(httpStatus.UNPROCESSABLE_ENTITY, errorMsg);
     }
-    const prompt = `${transcript} ${constants.NOTES_GENERATE_PROMPT}`;
-
-    const generatedNote = await openai.chat.completions.create({
+    const constructedUserPrompt = prompt
+      ? `${prompt} for this transcript ${transcript}`
+      : `${constants.SUMMARY_USER_PROMPT} ${transcript}`;
+    const constructedSystemPrompt = prompt
+      ? constants.CHAT_SYSTEM_PROMPT
+      : constants.SUMMARY_SYSTEM_PROMPT;
+    const responseStream = await openai.chat.completions.create({
       messages: [
-        { role: 'system', content: constants.SYSTEM_CONTENT },
-        { role: 'user', content: prompt },
+        { role: 'system', content: constructedSystemPrompt },
+        { role: 'user', content: constructedUserPrompt },
       ],
-      model: constants.GPT_MODEL_NAME,
+      model: process.env.GPT_MODEL_NAME!,
+      stream: true,
     });
 
-    if (!generatedNote.choices[0].message.content) {
-      errorMsg = `notes not generated successfully}`;
-      throw new ApiError(httpStatus.UNPROCESSABLE_ENTITY, errorMsg);
-    }
-    logger.info('[Services: gptService] - notes generated successfully');
-    return generatedNote.choices[0].message.content;
+    return responseStream;
   } catch (error) {
     logger.error(`[Services: gptService] - ${JSON.stringify(error)}`);
     throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, errorMsg);

@@ -1,22 +1,41 @@
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import {
+  Navigate,
+  createBrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
 
 import Dashboard from './app/dashboard';
 import Header from './components/header';
 import Footer from './components/footer';
 import './index.css';
+import { ContextProvider } from './context/appContext';
+import Generate from './app/generate';
+import NotFound from './app/notFound';
 
-/* eslint-disable */
-const root = ReactDOM.createRoot(document.getElementById('root')!);
-root.render(
-  <StrictMode>
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Dashboard />,
+  },
+  {
+    path: '/generate',
+    element: <Generate />,
+  },
+  {
+    path: '/404',
+    element: <NotFound />,
+  },
+  {
+    path: '*',
+    element: <Navigate to="/404" replace />,
+  },
+]);
+
+createRoot(document.getElementById('root')!).render(
+  <ContextProvider>
     <Header />
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
     <Footer />
-  </StrictMode>
+  </ContextProvider>
 );
