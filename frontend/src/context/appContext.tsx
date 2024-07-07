@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode } from 'react';
-import { useFetchSummary } from '../customHooks/useFetchSummary';
+import { useFetchSummary } from '../hooks/useFetchSummary';
 import { AppContextState } from '../types';
 
 const AppContext = createContext<AppContextState | undefined>(undefined);

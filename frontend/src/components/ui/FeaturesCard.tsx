@@ -1,6 +1,6 @@
-import { CardProps } from '../types';
+import { CardProps } from '../../types';
 
-function Card({ icon, title, description }: CardProps) {
+const FeaturesCard: React.FC<CardProps> = ({ icon, title, description }) => {
   return (
     <div className="bg-gray-900 text-white rounded-lg p-6 shadow-lg">
       <div className="flex items-center mb-4">
@@ -10,6 +10,6 @@ function Card({ icon, title, description }: CardProps) {
       <p className="text-gray-400">{description}</p>
     </div>
   );
-}
+};
 
-export default Card;
+export default FeaturesCard;

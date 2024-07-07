@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../../context/appContext';
 
-const FormWrapper = () => {
+const YoutubeSummaryForm = () => {
   const { error, getYoutubeSummary } = useAppContext();
   const [formData, setFormData] = useState({
     videoUrl: '',
@@ -73,4 +73,4 @@ const FormWrapper = () => {
   );
 };
 
-export default FormWrapper;
+export default YoutubeSummaryForm;

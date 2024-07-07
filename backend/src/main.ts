@@ -33,6 +33,7 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT ?? 3000;
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
+  if (process.env.NODE_ENV === 'development')
+    console.log(`Listening at http://localhost:${port}`);
 });
 server.on('error', console.error);

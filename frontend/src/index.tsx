@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 
 import Dashboard from './app/dashboard';
-import Header from './components/header';
-import Footer from './components/footer';
+import Header from './components/ui/header';
+import Footer from './components/ui/Footer';
 import './index.css';
 import { ContextProvider } from './context/appContext';
 import Generate from './app/generate';

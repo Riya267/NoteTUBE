@@ -70,11 +70,6 @@ jobs:
       - name: Deploy Frontend to Vercel
         run: |
           DEPLOY_URL=$(vercel deploy --cwd="${{ github.workspace }}/notetube"  --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_ORG_ID }})
-          echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
-        if: ${{ github.event.inputs['target-service'] == 'frontend' }}
-
-      - name: Output Deployed URL
-        run: echo "Frontend Deployed URL -  ${{ env.DEPLOY_URL }}"
         if: ${{ github.event.inputs['target-service'] == 'frontend' }}
 
       - name: Remove old Docker images
@@ -109,7 +104,7 @@ jobs:
       - name: Send Deployment Notification
         run: |
           if [ "${{ github.event.inputs['target-service'] }}" == "frontend" ]; then
-            echo "Frontend deployment to Vercel was successful! Deployed URL: ${{ env.DEPLOY_URL }}"
+            echo "Frontend deployment to Vercel was successful"
           else
             echo "Backend deployment to Render was successful!"
           fi

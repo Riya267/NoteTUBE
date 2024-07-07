@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import Markdown from 'react-markdown';
 import { FaCopy } from 'react-icons/fa';
-import ExportButton from './exportSummary';
-import { copyToClipboard, scrollToBottom } from '../utils/helper';
-import { youtubeEmbedUrl } from '../utils/constants';
+import ExportButton from '../ui/ExportSummary';
+import { copyToClipboard, scrollToBottom } from '../../utils/helper';
+import { youtubeEmbedUrl } from '../../utils/constants';
 import remarkGfm from 'remark-gfm';
-import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../../context/appContext';
 
-const SummaryWrapper: React.FC = () => {
+const SummaryViewer: React.FC = () => {
   const { videoId, summary } = useAppContext();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const SummaryWrapper: React.FC = () => {
         <div className="rounded-lg overflow-hidden">
           <iframe
             className="w-full h-64 md:h-full object-cover"
-            title="Youtube player"
+            title="YouTube player"
             src={`${youtubeEmbedUrl}/${videoId}`}
             allowFullScreen
           ></iframe>
@@ -52,4 +52,4 @@ const SummaryWrapper: React.FC = () => {
   );
 };
 
-export default SummaryWrapper;
+export default SummaryViewer;

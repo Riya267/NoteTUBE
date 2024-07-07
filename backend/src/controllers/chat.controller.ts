@@ -38,7 +38,6 @@ const chatWithYoutubeVideo = async (
 
     for await (const data of responseStream) {
       chatResponse += data.choices[0].delta.content;
-      console.log('chatResponse', chatResponse);
       res.write('data:' + JSON.stringify({ chatResponse, videoId }));
       res.write('\n\n');
     }

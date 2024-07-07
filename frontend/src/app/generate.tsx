@@ -1,14 +1,12 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useFetchSummary } from '../customHooks/useFetchSummary';
-import { ActivityIndicator } from '../utils/helper';
-import FormWrapper from '../components/formWrapper';
-import NotesWrapper from '../components/summaryWrapper';
-import CardGrid from '../components/WhyCardGrid';
-import HowItWorks from '../components/howItWorks';
-import QuickPrompts from '../components/quickPrompts';
+import CardGrid from '../components/ui/NoteTubeFeaturesGrid';
+import HowItWorks from '../components/ui/HowItWorks';
 import { useAppContext } from '../context/appContext';
 import { Navigate } from 'react-router-dom';
+import { howItWorksData, noteTubeFeatures } from '../utils/constants';
+import QuickPrompts from '../components/containers/QuickPrompts';
+import SummaryWrapper from '../components/containers/SummaryWrapper';
 
 export default function Generate() {
   const { summary } = useAppContext();
@@ -18,10 +16,10 @@ export default function Generate() {
   }
   return (
     <div className="relative flex flex-col">
-      <NotesWrapper />
+      <SummaryWrapper />
       <QuickPrompts />
-      <CardGrid />
-      <HowItWorks />
+      <CardGrid noteTubeFeatures={noteTubeFeatures} />
+      <HowItWorks {...howItWorksData} />
       <ToastContainer
         position="top-right"
         autoClose={5000}

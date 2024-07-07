@@ -37,7 +37,6 @@ const fetchYoutubeSummary = async (
 
     for await (const data of responseStream) {
       summary += data.choices[0].delta.content;
-      console.log('summary', summary);
       res.write('data:' + JSON.stringify({ summary, videoId }));
       res.write('\n\n');
     }

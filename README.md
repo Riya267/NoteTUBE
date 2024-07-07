@@ -41,12 +41,6 @@ NoteTube is a web application that generates summarized notes based on YouTube v
     pnpm install
     ```
 
-3. Create a `.env` file in the root directory and add your ChatGPT API key:
-
-    ```env
-    REACT_APP_CHATGPT_API_KEY=your_chatgpt_api_key
-    ```
-
 ### Running the Application
 
 1. Start both frontend and backend server's:

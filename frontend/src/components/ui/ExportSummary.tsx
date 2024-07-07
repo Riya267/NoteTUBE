@@ -1,14 +1,18 @@
 import React from 'react';
 import { FaDownload } from 'react-icons/fa';
-import { Summary, VideoId } from '../types';
+import { Summary, VideoId } from '../../types';
 
-const ExportButton: React.FC<Summary & VideoId & { type: string }> = ({
+interface ExportButtonProps extends Summary, VideoId {
+  type: 'text';
+}
+
+const ExportButton: React.FC<ExportButtonProps> = ({
   summary,
   videoId,
   type,
 }) => {
-  const handleExport = (format: string) => {
-    switch (format) {
+  const handleExport = () => {
+    switch (type) {
       case 'text':
         exportAsTextFile();
         break;
@@ -26,15 +30,16 @@ const ExportButton: React.FC<Summary & VideoId & { type: string }> = ({
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
     <button
       className="py-2 px-4 lg:px-6 text-base lg:text-lg rounded-md bg-gray-500 border-2 border-gray-500 hover:border-slate-800 hover:bg-gray-900 text-white flex items-center mb-2 lg:mb-0 lg:mr-2"
-      onClick={() => handleExport(type)}
+      onClick={handleExport}
     >
       <FaDownload className="mr-2" />
-      Download {type} File
+      Download {type.toUpperCase()} File
     </button>
   );
 };

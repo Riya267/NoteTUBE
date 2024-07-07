@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import logo from '../../public/noteTubeLogo.png';
+import logo from '../../../public/noteTubeLogo.png';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
