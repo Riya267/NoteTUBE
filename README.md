@@ -70,7 +70,7 @@ NoteTube is deployed on Vercel (frontend) and Render (backend) for continuous in
 - **Method**: `POST`
 - **Description**: Allows users to interact with the YouTube information for a customized experience.
 
-![Quick Prompts Section](image.png)
+![image](https://github.com/Riya267/NoteTUBE/assets/81959232/57df0eab-9e0d-4ddd-a3fa-41d4676019e1)
 
 ## Quick Prompts
 
