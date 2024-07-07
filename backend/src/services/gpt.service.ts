@@ -1,4 +1,3 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import constants from '../constants';
 import ApiError from '../util/ApiError';
 import httpStatus from 'http-status';
@@ -23,7 +22,10 @@ const gptService = async (transcript: string) => {
     const prompt = `${transcript} ${constants.NOTES_GENERATE_PROMPT}`;
 
     const generatedNote = await openai.chat.completions.create({
-      messages: [{ role: 'user', content: prompt }],
+      messages: [
+        { role: 'system', content: constants.SYSTEM_CONTENT },
+        { role: 'user', content: prompt },
+      ],
       model: constants.GPT_MODEL_NAME,
     });
 
