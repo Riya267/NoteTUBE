@@ -28,7 +28,7 @@ const SummaryWrapper: React.FC = () => {
               {summary}
             </Markdown>
           </div>
-          <div className="mt-4 flex flex-col lg:flex-row lg:justify-between">
+          <div className="mt-4 flex flex-col lg:flex-row lg:justify-evenly">
             <button
               className="py-2 px-4 lg:px-6 text-base lg:text-lg rounded-md border-2 border-gray-500 bg-gray-500 hover:border-slate-800 hover:bg-gray-900 text-white flex items-center mb-2 lg:mb-0 lg:mr-2"
               onClick={() => copyToClipboard(summary)}
@@ -37,7 +37,6 @@ const SummaryWrapper: React.FC = () => {
               Copy Summary
             </button>
             <ExportButton summary={summary} videoId={videoId} type="text" />
-            <ExportButton summary={summary} videoId={videoId} type="pdf" />
           </div>
         </div>
         <div className="rounded-lg overflow-hidden">

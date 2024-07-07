@@ -1,6 +1,4 @@
 import React from 'react';
-import jsPDF from 'jspdf';
-import { marked } from 'marked';
 import { FaDownload } from 'react-icons/fa';
 import { Summary, VideoId } from '../types';
 
@@ -13,9 +11,6 @@ const ExportButton: React.FC<Summary & VideoId & { type: string }> = ({
     switch (format) {
       case 'text':
         exportAsTextFile();
-        break;
-      case 'pdf':
-        exportAsPDF();
         break;
       default:
         break;
@@ -31,24 +26,6 @@ const ExportButton: React.FC<Summary & VideoId & { type: string }> = ({
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-  };
-
-  const exportAsPDF = () => {
-    const html = marked(summary);
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html as string, 'text/html');
-    const walker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT);
-
-    const textList: string[] = [];
-    let currentNode = walker.currentNode;
-
-    while (currentNode) {
-      textList.push(currentNode.textContent || '');
-      currentNode = walker.nextNode() as Node;
-    }
-    const pdfdoc = new jsPDF();
-    pdfdoc.text(textList.join('\n'), 25, 25);
-    pdfdoc.save(`notes-${videoId}.pdf`);
   };
 
   return (
