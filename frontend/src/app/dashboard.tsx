@@ -1,12 +1,9 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useFetchSummary } from '../customHooks/useFetchSummary';
 import { ActivityIndicator } from '../utils/helper';
 import FormWrapper from '../components/formWrapper';
-import NotesWrapper from '../components/summaryWrapper';
 import CardGrid from '../components/WhyCardGrid';
 import HowItWorks from '../components/howItWorks';
-import QuickPrompts from '../components/quickPrompts';
 import { useAppContext } from '../context/appContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
