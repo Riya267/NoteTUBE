@@ -6,6 +6,8 @@
   </a>
 </p>
 
+![image](https://github.com/Riya267/NoteTUBE/assets/81959232/361c3297-0a08-4cd8-ba45-df066dfd70c3)
+
 # NoteTube
 
 NoteTube is a web application that generates summarized notes based on YouTube video URLs provided by users. It uses the ChatGPT API to create concise and comprehensive summaries, making it easier for users to grasp the main points and ideas from YouTube videos quickly and efficiently.
