@@ -6,7 +6,7 @@
   </a>
 </p>
 
-![image](https://github.com/Riya267/NoteTUBE/assets/81959232/361c3297-0a08-4cd8-ba45-df066dfd70c3)
+![image](https://github.com/Riya267/NoteTUBE/assets/81959232/60d33a25-54c6-470e-80e0-117c4b233b03)
 
 # NoteTube
 
